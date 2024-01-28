@@ -1,7 +1,6 @@
 #!/usr/bin/python3
-"""start flask web server"""
-from flask import Flask
-
+"""flask web server"""
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
@@ -26,6 +25,16 @@ def myvar(text="is cool"):
 def myPythonText(text="is cool"):
     """python section"""
     return "Python {}".format(text.replace("_", " "))
-   
+
+@app.route("/number/<int:n>", strict_slashes=False)
+def number(n):
+    """number section"""
+    return "{} is a number".format(n)
+
+@app.route("/number_template/<int:n>", strict_slashes=False)
+def number_two(n):
+    """number_template section"""
+    return render_template('5-number.html', content=n)
+  
 if __name__ == '__main__':
     app.run(debug=True, port=5000, host='0.0.0.0')
